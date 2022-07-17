@@ -3,11 +3,25 @@
     <li
       v-for="(item, index) in items"
       :key="index"
-      class="menu-item"
       :class="{ 'menu-item--first': index === 0 }"
+      class="menu-item"
     >
-      <nuxt-link v-if="item.name && item.inner" class="menu-link" :to="item.link">{{ item.name }}</nuxt-link>
-      <a v-else-if="item.name && !item.inner" class="menu-link" :href="item.link">{{ item.name }}</a>
+      <template v-if="item.name">
+        <a v-if="item.name && item.link.includes('https://')"
+           :href="item.link"
+           class="menu-link"
+        >
+          {{ item.name }}
+        </a>
+
+        <nuxt-link
+          v-else
+          :to="item.link"
+          class="menu-link"
+        >
+          {{ item.name }}
+        </nuxt-link>
+      </template>
     </li>
   </ul>
 </template>
@@ -17,11 +31,11 @@ export default {
   name: 'Menu',
   data: () => ({
     items: [
-        { name: '', link: '', inner: true },
-        { name: 'Главная', link: '', inner: true },
-        { name: 'Фотографии', link: '', inner: true },
-        { name: 'Конкурс', link: '', inner: true },
-        { name: 'HTML Academy', link: 'https://htmlacademy.ru/intensive/adaptive', inner: false }
+        { name: '', link: '' },
+        { name: 'Главная', link: '' },
+        { name: 'Фотографии', link: '' },
+        { name: 'Конкурс', link: '' },
+        { name: 'HTML Academy', link: 'https://htmlacademy.ru/intensive/adaptive' }
       ]
   })
 }

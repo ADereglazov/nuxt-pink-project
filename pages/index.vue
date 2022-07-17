@@ -1,12 +1,18 @@
 <template>
-  <h1 class="title">Hello!</h1>
+  <div>
+    <Header />
+  </div>
 </template>
 
 <script>
+import Header from "~/components/Header";
+
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  components: { Header }
 }
 </script>
+
 <style lang="less" scoped>
   .title {
     color: tomato;

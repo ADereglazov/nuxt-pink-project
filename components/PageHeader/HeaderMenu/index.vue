@@ -4,15 +4,16 @@
       v-for="(item, index) in items"
       :key="index"
       :class="{
-          'menu-item--first': index === 0,
-          'menu-item--active': $route.path === item.link
-        }"
+        'menu-item--first': index === 0,
+        'menu-item--active': $route.path === item.link,
+      }"
       class="menu-item"
     >
       <template v-if="item.name">
-        <a v-if="item.name && item.link.includes('https://')"
-           :href="item.link"
-           class="menu-link"
+        <a
+          v-if="item.name && item.link.includes('https://')"
+          :href="item.link"
+          class="menu-link"
         >
           {{ item.name }}
         </a>
@@ -21,8 +22,9 @@
           v-else
           :to="item.link"
           :class="{
-            'menu-link--index': $route.path === '/' && $route.path === item.link,
-            'menu-link--current': $route.path === item.link
+            'menu-link--index':
+              $route.path === '/' && $route.path === item.link,
+            'menu-link--current': $route.path === item.link,
           }"
           class="menu-link"
         >
@@ -35,22 +37,23 @@
 
 <script>
 export default {
-  name: 'Menu',
+  name: "HeaderMenu",
   data: () => ({
     items: [
-        { name: '', link: '' },
-        { name: 'Главная', link: '/' },
-        { name: 'Фотографии', link: 'photo' },
-        { name: 'Конкурс', link: 'form' },
-        { name: 'HTML Academy', link: 'https://htmlacademy.ru/intensive/adaptive' }
-      ]
-  })
-}
+      { name: "", link: "" },
+      { name: "Главная", link: "/" },
+      { name: "Фотографии", link: "photo" },
+      { name: "Конкурс", link: "form" },
+      {
+        name: "HTML Academy",
+        link: "https://htmlacademy.ru/intensive/adaptive",
+      },
+    ],
+  }),
+};
 </script>
 
 <style lang="less" scoped>
-@import (reference) "./assets/styles/styles.less";
-
 .menu {
   .list-reset();
   font-size: 18px;

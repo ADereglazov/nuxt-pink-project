@@ -1,20 +1,20 @@
 <template>
   <div>
-    <Header />
+    <PageHeader />
   </div>
 </template>
 
 <script>
-import Header from "~/components/Header";
+import PageHeader from "~/components/PageHeader";
 
 export default {
-  name: 'IndexPage',
-  components: { Header }
-}
+  name: "IndexPage",
+  components: { PageHeader },
+};
 </script>
 
 <style lang="less" scoped>
-  .title {
-    color: tomato;
-  }
+.title {
+  color: tomato;
+}
 </style>

@@ -1,30 +1,34 @@
 <template>
   <header class="header">
-    <nav :class="{ 'header__nav--closed': !mobileMenuOpened }" class="header__nav">
-      <Logo />
-      <MenuToggle :open="mobileMenuOpened" @open-menu="mobileMenuOpened = $event" />
-      <Menu class="header__nav-list" />
+    <nav
+      :class="{ 'header__nav--closed': !mobileMenuOpened }"
+      class="header__nav"
+    >
+      <HeaderLogo />
+      <MenuToggle
+        :open="mobileMenuOpened"
+        @open-menu="mobileMenuOpened = $event"
+      />
+      <HeaderMenu class="header__nav-list" />
     </nav>
   </header>
 </template>
 
 <script>
-import Logo from "./Logo";
+import HeaderLogo from "./HeaderLogo";
 import MenuToggle from "./MenuToggle";
-import Menu from "./Menu";
+import HeaderMenu from "./HeaderMenu";
 
 export default {
-  name: 'Header',
-  components: { Menu, MenuToggle, Logo },
+  name: "PageHeader",
+  components: { HeaderMenu, MenuToggle, HeaderLogo },
   data: () => ({
-    mobileMenuOpened: false
-  })
-}
+    mobileMenuOpened: false,
+  }),
+};
 </script>
 
 <style lang="less" scoped>
-@import (reference) "./assets/styles/styles.less";
-
 .header {
   position: relative;
   min-height: 66px;

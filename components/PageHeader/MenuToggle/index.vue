@@ -1,9 +1,28 @@
 <template>
-  <button class="toggle" type="button" aria-label="Переключить меню" @click="handleClick">
-    <svg v-show="open" class="toggle-image" width="24" height="24" aria-hidden="true" focusable="false">
+  <button
+    class="toggle"
+    type="button"
+    aria-label="Переключить меню"
+    @click="handleClick"
+  >
+    <svg
+      v-show="open"
+      class="toggle-image"
+      width="24"
+      height="24"
+      aria-hidden="true"
+      focusable="false"
+    >
       <use xlink:href="~/assets/img/sprite.svg#icon-menu-cross"></use>
     </svg>
-    <svg v-show="!open" class="toggle-image" width="50" height="24" aria-hidden="true" focusable="false">
+    <svg
+      v-show="!open"
+      class="toggle-image"
+      width="50"
+      height="24"
+      aria-hidden="true"
+      focusable="false"
+    >
       <use xlink:href="~/assets/img/sprite.svg#icon-menu-burger"></use>
     </svg>
   </button>
@@ -11,25 +30,23 @@
 
 <script>
 export default {
-  name: 'MenuToggle',
+  name: "MenuToggle",
   props: {
     open: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
-    handleClick () {
-      this.$emit('open-menu', !this.open)
-    }
-  }
-}
+    handleClick() {
+      this.$emit("open-menu", !this.open);
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
-@import (reference) "./assets/styles/styles.less";
-
 .toggle {
   @media (max-width: @mobile-width-only) {
     position: absolute;

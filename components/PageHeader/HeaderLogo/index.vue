@@ -8,10 +8,20 @@
     <svg class="logo-image" width="74" height="23" role="img">
       <use xlink:href="~/assets/img/sprite.svg#logo-mobile"></use>
     </svg>
-    <svg class="logo-image logo-image--tablet" width="146" height="40" role="img">
+    <svg
+      class="logo-image logo-image--tablet"
+      width="146"
+      height="40"
+      role="img"
+    >
       <use xlink:href="~/assets/img/sprite.svg#logo-tablet"></use>
     </svg>
-    <svg class="logo-image logo-image--desktop" width="146" height="40" role="img">
+    <svg
+      class="logo-image logo-image--desktop"
+      width="146"
+      height="40"
+      role="img"
+    >
       <use xlink:href="~/assets/img/sprite.svg#logo-desktop"></use>
     </svg>
   </nuxt-link>
@@ -19,13 +29,11 @@
 
 <script>
 export default {
-  name: 'Logo'
-}
+  name: "HeaderLogo",
+};
 </script>
 
 <style lang="less" scoped>
-@import (reference) "./assets/styles/styles.less";
-
 .logo {
   cursor: default;
 

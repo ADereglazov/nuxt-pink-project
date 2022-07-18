@@ -1,9 +1,9 @@
 <template>
   <header class="header">
-    <nav class="header__nav">
+    <nav :class="{ 'header__nav--closed': !mobileMenuOpened }" class="header__nav">
       <Logo />
-      <MenuToggle />
-      <Menu />
+      <MenuToggle :open="mobileMenuOpened" @open-menu="mobileMenuOpened = $event" />
+      <Menu class="header__nav-list" />
     </nav>
   </header>
 </template>
@@ -15,7 +15,10 @@ import Menu from "./Menu";
 
 export default {
   name: 'Header',
-  components: { Menu, MenuToggle, Logo }
+  components: { Menu, MenuToggle, Logo },
+  data: () => ({
+    mobileMenuOpened: false
+  })
 }
 </script>
 
@@ -28,6 +31,12 @@ export default {
   margin-bottom: -66px;
   background-color: @black-opacity03;
   z-index: 1;
+
+  @media (max-width: @mobile-width-only) {
+    &__nav--closed &__nav-list {
+      display: none;
+    }
+  }
 
   @media (min-width: @tablet-width) {
     min-height: 110px;

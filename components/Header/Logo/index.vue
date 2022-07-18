@@ -1,5 +1,10 @@
 <template>
-  <a class="logo" aria-label="Логотип Pink">
+  <nuxt-link
+    :data-not-index-page="$route.path !== '/'"
+    to="/"
+    class="logo"
+    aria-label="Логотип Pink"
+  >
     <svg class="logo-image" width="74" height="23" role="img">
       <use xlink:href="~/assets/img/sprite.svg#logo-mobile"></use>
     </svg>
@@ -9,7 +14,7 @@
     <svg class="logo-image logo-image--desktop" width="146" height="40" role="img">
       <use xlink:href="~/assets/img/sprite.svg#logo-desktop"></use>
     </svg>
-  </a>
+  </nuxt-link>
 </template>
 
 <script>
@@ -22,16 +27,20 @@ export default {
 @import (reference) "./assets/styles/styles.less";
 
 .logo {
-  cursor: pointer;
+  cursor: default;
 
-  &:hover .logo-image {
-    color: @pink;
-    fill: @pink;
-  }
+  &[data-not-index-page] {
+    cursor: pointer;
 
-  &:active .logo-image {
-    color: @pink-opacity03;
-    fill: @pink-opacity03;
+    &:hover .logo-image {
+      color: @pink;
+      fill: @pink;
+    }
+
+    &:active .logo-image {
+      color: @pink-opacity03;
+      fill: @pink-opacity03;
+    }
   }
 
   @media (max-width: @mobile-width-only) {

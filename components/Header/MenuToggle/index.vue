@@ -1,5 +1,5 @@
 <template>
-  <button class="toggle" type="button" aria-label="Переключить меню" @click="open = !open">
+  <button class="toggle" type="button" aria-label="Переключить меню" @click="handleClick">
     <svg v-show="open" class="toggle-image" width="24" height="24" aria-hidden="true" focusable="false">
       <use xlink:href="~/assets/img/sprite.svg#icon-menu-cross"></use>
     </svg>
@@ -12,9 +12,18 @@
 <script>
 export default {
   name: 'MenuToggle',
-  data: () => ({
-    open: false
-  }),
+  props: {
+    open: {
+      type: Boolean,
+      required: true,
+      default: false
+    }
+  },
+  methods: {
+    handleClick () {
+      this.$emit('open-menu', !this.open)
+    }
+  }
 }
 </script>
 

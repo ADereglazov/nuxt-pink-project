@@ -3,7 +3,10 @@
     <li
       v-for="(item, index) in items"
       :key="index"
-      :class="{ 'menu-item--first': index === 0 }"
+      :class="{
+          'menu-item--first': index === 0,
+          'menu-item--active': $route.path === item.link
+        }"
       class="menu-item"
     >
       <template v-if="item.name">
@@ -17,6 +20,10 @@
         <nuxt-link
           v-else
           :to="item.link"
+          :class="{
+            'menu-link--index': $route.path === '/' && $route.path === item.link,
+            'menu-link--current': $route.path === item.link
+          }"
           class="menu-link"
         >
           {{ item.name }}
@@ -32,9 +39,9 @@ export default {
   data: () => ({
     items: [
         { name: '', link: '' },
-        { name: 'Главная', link: '' },
-        { name: 'Фотографии', link: '' },
-        { name: 'Конкурс', link: '' },
+        { name: 'Главная', link: '/' },
+        { name: 'Фотографии', link: 'photo' },
+        { name: 'Конкурс', link: 'form' },
         { name: 'HTML Academy', link: 'https://htmlacademy.ru/intensive/adaptive' }
       ]
   })

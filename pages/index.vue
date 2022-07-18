@@ -1,20 +1,17 @@
 <template>
   <div>
     <PageHeader />
+    <div style="height: 200px"></div>
+    <PageFooter />
   </div>
 </template>
 
 <script>
-import PageHeader from "~/components/PageHeader";
+import PageHeader from "@/components/PageHeader";
+import PageFooter from "@/components/PageFooter";
 
 export default {
   name: "IndexPage",
-  components: { PageHeader },
+  components: { PageFooter, PageHeader },
 };
 </script>
-
-<style lang="less" scoped>
-.title {
-  color: tomato;
-}
-</style>

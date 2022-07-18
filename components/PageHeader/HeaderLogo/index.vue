@@ -2,14 +2,14 @@
   <nuxt-link
     :data-not-index-page="$route.path !== '/'"
     to="/"
-    class="logo"
+    class="header-logo"
     aria-label="Логотип Pink"
   >
-    <svg class="logo-image" width="74" height="23" role="img">
+    <svg class="header-logo-image" width="74" height="23" role="img">
       <use xlink:href="~/assets/img/sprite.svg#logo-mobile"></use>
     </svg>
     <svg
-      class="logo-image logo-image--tablet"
+      class="header-logo-image header-logo-image--tablet"
       width="146"
       height="40"
       role="img"
@@ -17,7 +17,7 @@
       <use xlink:href="~/assets/img/sprite.svg#logo-tablet"></use>
     </svg>
     <svg
-      class="logo-image logo-image--desktop"
+      class="header-logo-image header-logo-image--desktop"
       width="146"
       height="40"
       role="img"
@@ -34,18 +34,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.logo {
+.header-logo {
   cursor: default;
 
   &[data-not-index-page] {
     cursor: pointer;
 
-    &:hover .logo-image {
+    &:hover &-image {
       color: @pink;
       fill: @pink;
     }
 
-    &:active .logo-image {
+    &:active &-image {
       color: @pink-opacity03;
       fill: @pink-opacity03;
     }
@@ -60,7 +60,7 @@ export default {
   @media (min-width: @tablet-width) {
     top: 30px;
 
-    .main-nav__logo-image {
+    &-image {
       display: none;
 
       &--tablet {

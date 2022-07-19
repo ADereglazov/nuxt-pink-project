@@ -25,6 +25,17 @@ export default {
   padding-top: 40px;
   background-color: @white;
 
+  @media (min-width: @tablet-width) {
+    display: block;
+    min-height: 127px;
+    padding-top: 45px;
+  }
+
+  @media (min-width: @desktop-width) {
+    min-height: 197px;
+    padding-top: 77px;
+  }
+
   &__wrapper {
     display: flex;
     flex-direction: column;

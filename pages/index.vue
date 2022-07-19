@@ -9,8 +9,8 @@
       <AdvantagesSection />
       <EffectSection />
       <ReviewsSection />
+      <PricesSection />
     </main>
-    <div style="height: 200px"></div>
     <PageFooter />
   </div>
 </template>
@@ -22,10 +22,12 @@ import DownloadSection from "@/components/IndexPage/DownloadSection";
 import AdvantagesSection from "@/components/IndexPage/AdvantagesSection";
 import EffectSection from "@/components/IndexPage/EffectSection";
 import ReviewsSection from "@/components/IndexPage/ReviewsSection";
+import PricesSection from "@/components/IndexPage/PricesSection";
 
 export default {
   name: "IndexPage",
   components: {
+    PricesSection,
     ReviewsSection,
     EffectSection,
     AdvantagesSection,

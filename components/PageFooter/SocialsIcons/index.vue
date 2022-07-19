@@ -1,24 +1,15 @@
 <template>
   <div class="social">
     <ul class="social__list">
-      <li class="social__item">
-        <a class="social__link" href="#" aria-label="Твиттер">
-          <svg class="social__image" width="18" height="14" role="img">
-            <use xlink:href="~/assets/img/sprite.svg#icon-twitter"></use>
-          </svg>
-        </a>
-      </li>
-      <li class="social__item">
-        <a class="social__link" href="#" aria-label="Фейсбук">
-          <svg class="social__image" width="9" height="18" role="img">
-            <use xlink:href="~/assets/img/sprite.svg#icon-facebook"></use>
-          </svg>
-        </a>
-      </li>
-      <li class="social__item">
-        <a class="social__link" href="#" aria-label="YouTube">
-          <svg class="social__image" width="15" height="13" role="img">
-            <use xlink:href="~/assets/img/sprite.svg#icon-youtube"></use>
+      <li v-for="item in socialList" :key="item.name" class="social__item">
+        <a class="social__link" :href="item.link" :aria-label="item.name">
+          <svg
+            :width="item.image.width"
+            :height="item.image.height"
+            class="social__image"
+            role="img"
+          >
+            <use :xlink:href="item.image.src"></use>
           </svg>
         </a>
       </li>
@@ -27,8 +18,41 @@
 </template>
 
 <script>
+const SPRITE = require("~/assets/img/sprite.svg");
+
 export default {
   name: "SocialsIcons",
+  data: () => ({
+    socialList: [
+      {
+        name: "Твиттер",
+        link: "#",
+        image: {
+          width: 18,
+          height: 14,
+          src: `${SPRITE}#icon-twitter`,
+        },
+      },
+      {
+        name: "Фейсбук",
+        link: "#",
+        image: {
+          width: 9,
+          height: 18,
+          src: `${SPRITE}#icon-facebook`,
+        },
+      },
+      {
+        name: "YouTube",
+        link: "#",
+        image: {
+          width: 15,
+          height: 13,
+          src: `${SPRITE}#icon-youtube`,
+        },
+      },
+    ],
+  }),
 };
 </script>
 

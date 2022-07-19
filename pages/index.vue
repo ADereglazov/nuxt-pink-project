@@ -11,6 +11,7 @@
       <ReviewsSection />
       <PricesSection />
       <ContactsSection />
+      <MapSection />
     </main>
     <PageFooter />
   </div>
@@ -25,10 +26,12 @@ import EffectSection from "@/components/IndexPage/EffectSection";
 import ReviewsSection from "@/components/IndexPage/ReviewsSection";
 import PricesSection from "@/components/IndexPage/PricesSection";
 import ContactsSection from "@/components/IndexPage/ContactsSection";
+import MapSection from "@/components/IndexPage/MapSection";
 
 export default {
   name: "IndexPage",
   components: {
+    MapSection,
     ContactsSection,
     PricesSection,
     ReviewsSection,

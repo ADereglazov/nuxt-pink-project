@@ -1,5 +1,8 @@
 <template>
-  <footer class="page-footer">
+  <footer
+    :class="{ 'page-footer--hide': $route.path === '/' }"
+    class="page-footer"
+  >
     <div class="page-footer__wrapper container">
       <FooterLogo />
       <SocialsIcons />
@@ -24,6 +27,10 @@ export default {
   min-height: 285px;
   padding-top: 40px;
   background-color: @white;
+
+  &--hide {
+    display: none;
+  }
 
   @media (min-width: @tablet-width) {
     display: block;

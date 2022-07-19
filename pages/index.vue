@@ -6,6 +6,7 @@
         Pink - раскрась серые будни в розовый цвет!
       </h1>
       <DownloadSection />
+      <AdvantagesSection />
     </main>
     <div style="height: 200px"></div>
     <PageFooter />
@@ -16,9 +17,10 @@
 import PageHeader from "@/components/PageHeader";
 import PageFooter from "@/components/PageFooter";
 import DownloadSection from "@/components/IndexPage/DownloadSection";
+import AdvantagesSection from "@/components/IndexPage/AdvantagesSection";
 
 export default {
   name: "IndexPage",
-  components: { DownloadSection, PageFooter, PageHeader },
+  components: { AdvantagesSection, DownloadSection, PageFooter, PageHeader },
 };
 </script>

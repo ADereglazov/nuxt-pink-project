@@ -10,6 +10,7 @@
       <EffectSection />
       <ReviewsSection />
       <PricesSection />
+      <ContactsSection />
     </main>
     <PageFooter />
   </div>
@@ -23,10 +24,12 @@ import AdvantagesSection from "@/components/IndexPage/AdvantagesSection";
 import EffectSection from "@/components/IndexPage/EffectSection";
 import ReviewsSection from "@/components/IndexPage/ReviewsSection";
 import PricesSection from "@/components/IndexPage/PricesSection";
+import ContactsSection from "@/components/IndexPage/ContactsSection";
 
 export default {
   name: "IndexPage",
   components: {
+    ContactsSection,
     PricesSection,
     ReviewsSection,
     EffectSection,

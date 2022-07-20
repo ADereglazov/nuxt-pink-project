@@ -78,7 +78,7 @@
                 class="download__image"
                 role="img"
               >
-                <use :xlink:href="item.image.src"></use>
+                <use :xlink:href="iconSrc(item.image.iconId)"></use>
               </svg>
             </a>
           </li>
@@ -104,7 +104,7 @@ export default {
         image: {
           width: 47,
           height: 56,
-          src: `${SPRITE}#logo-apple`,
+          iconId: "#logo-apple",
         },
       },
       {
@@ -113,7 +113,7 @@ export default {
         image: {
           width: 43,
           height: 47,
-          src: `${SPRITE}#logo-android`,
+          iconId: "#logo-android",
         },
       },
       {
@@ -122,11 +122,16 @@ export default {
         image: {
           width: 44,
           height: 41,
-          src: `${SPRITE}#logo-microsoft`,
+          iconId: "#logo-microsoft",
         },
       },
     ],
   }),
+  methods: {
+    iconSrc(id) {
+      return SPRITE + id;
+    },
+  },
 };
 </script>
 

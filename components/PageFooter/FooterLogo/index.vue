@@ -34,11 +34,11 @@ export default {
       cursor: pointer;
     }
 
-    &:hover &-image {
+    &:hover .footer-logo-image {
       color: @pink;
     }
 
-    &:active &-image {
+    &:active .footer-logo-image {
       fill: @pink-opacity03;
       color: @blue-dark-opacity03;
     }

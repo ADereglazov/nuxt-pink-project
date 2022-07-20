@@ -40,12 +40,12 @@ export default {
   &[data-not-index-page] {
     cursor: pointer;
 
-    &:hover &-image {
+    &:hover .header-logo-image {
       color: @pink;
       fill: @pink;
     }
 
-    &:active &-image {
+    &:active .header-logo-image {
       color: @pink-opacity03;
       fill: @pink-opacity03;
     }

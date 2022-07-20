@@ -82,7 +82,7 @@
                 aria-hidden="true"
                 focusable="false"
               >
-                <use :xlink:href="button.button.icon"></use>
+                <use :xlink:href="iconSrc(button.button.iconId)"></use>
               </svg>
             </button>
           </div>
@@ -134,7 +134,7 @@ export default {
           name: "Обрезка",
           width: 44,
           height: 44,
-          icon: `${SPRITE}#icon-editor-crop`,
+          iconId: "#icon-editor-crop",
         },
         range: {
           name: "Регулировка обрезки",
@@ -146,7 +146,7 @@ export default {
           name: "Заливка",
           width: 44,
           height: 44,
-          icon: `${SPRITE}#icon-editor-fill`,
+          iconId: "#icon-editor-fill",
         },
         range: {
           name: "Регулировка заливки",
@@ -158,7 +158,7 @@ export default {
           name: "Контраст",
           width: 32,
           height: 32,
-          icon: `${SPRITE}#icon-editor-contrast`,
+          iconId: "#icon-editor-contrast",
         },
         range: {
           name: "Регулировка контраста",
@@ -168,6 +168,11 @@ export default {
     ],
     toolCurrent: 0,
   }),
+  methods: {
+    iconSrc(id) {
+      return SPRITE + id;
+    },
+  },
 };
 </script>
 

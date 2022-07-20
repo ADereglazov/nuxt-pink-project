@@ -9,7 +9,7 @@
             class="social__image"
             role="img"
           >
-            <use :xlink:href="item.image.src"></use>
+            <use :xlink:href="iconSrc(item.image.iconId)"></use>
           </svg>
         </a>
       </li>
@@ -30,7 +30,7 @@ export default {
         image: {
           width: 18,
           height: 14,
-          src: `${SPRITE}#icon-twitter`,
+          iconId: "#icon-twitter",
         },
       },
       {
@@ -39,7 +39,7 @@ export default {
         image: {
           width: 9,
           height: 18,
-          src: `${SPRITE}#icon-facebook`,
+          iconId: "#icon-facebook",
         },
       },
       {
@@ -48,11 +48,16 @@ export default {
         image: {
           width: 15,
           height: 13,
-          src: `${SPRITE}#icon-youtube`,
+          iconId: "#icon-youtube",
         },
       },
     ],
   }),
+  methods: {
+    iconSrc(id) {
+      return SPRITE + id;
+    },
+  },
 };
 </script>
 

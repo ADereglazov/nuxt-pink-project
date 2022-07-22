@@ -8,68 +8,56 @@
       >
         <tbody>
           <tr class="prices__row">
-            <th class="prices__head"></th>
-            <th class="prices__head">
-              <b class="prices__name">База</b>
-              <span class="prices__price">1,99 USD</span>
-            </th>
-            <th class="prices__head prices__head--hit">
-              <b class="prices__name">Стандарт</b>
-              <span class="prices__price">3,99 USD</span>
-              <svg class="prices__img-hit" width="74" height="73">
-                <use xlink:href="~/assets/img/sprite.svg#icon-hit"></use>
-              </svg>
-              <svg
-                class="prices__img-hit-tablet"
-                width="61"
-                height="61"
-                role="img"
-                aria-label="Хит продаж"
-                focusable="false"
-              >
-                <use xlink:href="~/assets/img/sprite.svg#icon-hit-tablet"></use>
-              </svg>
-              <span class="prices__hit">ХИТ</span>
-            </th>
-            <th class="prices__head">
-              <b class="prices__name">Анлим</b>
-              <span class="prices__price">9,99 USD</span>
+            <th
+              v-for="column in tablePrices.tableHead"
+              :key="column.name"
+              :class="{ 'prices__head--hit': column.hit }"
+              class="prices__head"
+            >
+              <template v-if="column.name">
+                <b class="prices__name">{{ column.name }}</b>
+                <span class="prices__price">{{ column.price }}</span>
+              </template>
+              <template v-if="column.hit">
+                <svg class="prices__img-hit" width="74" height="73">
+                  <use xlink:href="~/assets/img/sprite.svg#icon-hit"></use>
+                </svg>
+                <svg
+                  class="prices__img-hit-tablet"
+                  width="61"
+                  height="61"
+                  role="img"
+                  aria-label="Хит продаж"
+                  focusable="false"
+                >
+                  <use
+                    xlink:href="~/assets/img/sprite.svg#icon-hit-tablet"
+                  ></use>
+                </svg>
+                <span class="prices__hit">ХИТ</span>
+              </template>
             </th>
           </tr>
-          <tr class="prices__row">
-            <td class="prices__data">Розовый фильтр</td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Розовый фильтр</span>
-            </td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Розовый фильтр</span>
-            </td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Розовый фильтр</span>
-            </td>
-          </tr>
-          <tr class="prices__row">
-            <td class="prices__data">Смайлики</td>
-            <td class="prices__data prices__data--no">
-              <span class="prices__text-mobile">Смайлики</span>
-            </td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Смайлики</span>
-            </td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Смайлики</span>
-            </td>
-          </tr>
-          <tr class="prices__row">
-            <td class="prices__data">Комментарии</td>
-            <td class="prices__data prices__data--no">
-              <span class="prices__text-mobile">Комментарии</span>
-            </td>
-            <td class="prices__data prices__data--no">
-              <span class="prices__text-mobile">Комментарии</span>
-            </td>
-            <td class="prices__data prices__data--yes">
-              <span class="prices__text-mobile">Комментарии</span>
+          <tr
+            v-for="row in tablePrices.tableData"
+            :key="row.name"
+            class="prices__row"
+          >
+            <td
+              v-for="(column, index) in row.data"
+              :key="column"
+              :class="{
+                'prices__data--yes': row.data[index] && index !== 0,
+                'prices__data--no': !row.data[index] && index !== 0,
+              }"
+              class="prices__data"
+            >
+              <template v-if="index === 0">
+                {{ row.name }}
+              </template>
+              <span v-else class="prices__text-mobile">
+                {{ row.name }}
+              </span>
             </td>
           </tr>
         </tbody>
@@ -96,6 +84,28 @@
 export default {
   name: "PricesSection",
   data: () => ({
+    tablePrices: {
+      tableHead: [
+        { name: "", price: "", hit: false },
+        { name: "База", price: "1,99 USD", hit: false },
+        { name: "Стандарт", price: "3,99 USD", hit: true },
+        { name: "Анлим", price: "9,99 USD", hit: false },
+      ],
+      tableData: [
+        {
+          name: "Розовый фильтр",
+          data: [false, true, true, true],
+        },
+        {
+          name: "Смайлики",
+          data: [false, false, true, true],
+        },
+        {
+          name: "Комментарии",
+          data: [false, false, false, true],
+        },
+      ],
+    },
     tablePositions: ["flex-start", "center", "flex-end"],
     tablePosition: 1,
   }),

@@ -6,7 +6,12 @@
       на вашу бонусную карту!
       <span class="form__title-hide">Пожалуйста, заполните форму ниже:</span>
     </p>
-    <form class="form__form" action="https://echo.htmlacademy.ru" method="post">
+    <form
+      class="form__form"
+      action="https://echo.htmlacademy.ru"
+      method="post"
+      @submit.prevent="handleSubmit"
+    >
       <div class="form__wrapper container">
         <fieldset class="form__fieldset form__fieldset--notbordered">
           <div
@@ -19,11 +24,17 @@
             </label>
             <input
               :id="item.id"
-              class="form__text-field"
-              type="text"
+              :ref="item.name"
+              v-model="fieldsModel[item.name]"
+              :class="{
+                form__required: item.required,
+                'form__error-field': errors[item.name],
+              }"
+              :type="item.type"
               :name="item.name"
               :placeholder="item.placeholder"
-              :required="item.required"
+              class="form__text-field"
+              @input="resetFieldError(item.name)"
             />
           </div>
         </fieldset>
@@ -44,10 +55,10 @@
               >
                 <input
                   :id="item.id"
-                  class="form__progress-input visually-hidden"
-                  type="checkbox"
                   :name="item.name"
                   :checked="item.checked"
+                  class="form__progress-input visually-hidden"
+                  type="checkbox"
                 />
                 <label class="form__progress-label" :for="item.id">
                   <span class="form__progress-text">{{ item.label }}</span>
@@ -72,12 +83,18 @@
             </label>
             <input
               :id="item.id"
-              class="form__text-field form__text-field--phone"
+              :ref="item.name"
+              v-model="fieldsModel[item.name]"
+              :class="{
+                form__required: item.required,
+                'form__error-field': errors[item.name],
+              }"
               :type="item.type"
               :name="item.name"
               :placeholder="item.placeholder"
               :pattern="item.pattern"
-              :required="item.required"
+              class="form__text-field"
+              @input="resetFieldError(item.name)"
             />
             <svg
               class="form__icon"
@@ -108,11 +125,11 @@
               >
                 <input
                   :id="item.id"
+                  :value="item.value"
+                  :checked="item.checked"
                   class="form__radio-field visually-hidden"
                   type="radio"
                   name="app"
-                  :value="item.value"
-                  :checked="item.checked"
                 />
                 <label class="form__radio-label" :for="item.id">
                   <span class="form__radio-text">{{ item.label }}</span>
@@ -149,11 +166,18 @@ const SPRITE = require("~/assets/img/sprite.svg");
 
 export default {
   name: "FormSection",
+  props: {
+    isFocus: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data: () => ({
     form: {
       person: [
         {
           id: "surname-field",
+          type: "text",
           name: "surname",
           label: "Фамилия:",
           placeholder: "Укажите фамилию *",
@@ -161,6 +185,7 @@ export default {
         },
         {
           id: "name-field",
+          type: "text",
           name: "name",
           label: "Имя:",
           placeholder: "Введите ваше имя *",
@@ -168,6 +193,7 @@ export default {
         },
         {
           id: "middle-name-field",
+          type: "text",
           name: "middle-name",
           label: "Отчество:",
           placeholder: "Ну и отчество тоже",
@@ -257,10 +283,74 @@ export default {
         },
       ],
     },
+    fieldsModel: {
+      surname: "",
+      name: "",
+      email: "",
+    },
+    errors: {
+      surname: false,
+      name: false,
+      email: false,
+    },
   }),
+  computed: {
+    formValidatorsMap() {
+      return {
+        surname: this.validateSurname,
+        name: this.validateName,
+        email: this.validateEmail,
+      };
+    },
+  },
+  watch: {
+    isFocus() {
+      const errorFieldName = Object.entries(this.errors).find(
+        (item) => item[1] === true
+      );
+      if (errorFieldName) {
+        this.$refs[errorFieldName[0]][0].focus();
+      }
+    },
+  },
   methods: {
     iconSrc(id) {
       return SPRITE + id;
+    },
+    handleSubmit() {
+      const valid = this.isValidForm();
+      if (valid) {
+        this.$emit("form-sent");
+      } else {
+        this.$emit("form-failure");
+      }
+    },
+    validateSurname() {
+      const valid = Boolean(this.fieldsModel.surname.length > 1);
+      this.errors.surname = !valid;
+      return valid;
+    },
+    validateName() {
+      const valid = Boolean(this.fieldsModel.name.length > 1);
+      this.errors.name = !valid;
+      return valid;
+    },
+    validateEmail() {
+      const valid = Boolean(this.fieldsModel.email);
+      this.errors.email = !valid;
+      return valid;
+    },
+    isValidForm() {
+      const validateResults = Object.keys(this.formValidatorsMap).map(
+        (field) => {
+          const validator = this.formValidatorsMap[field];
+          return validator();
+        }
+      );
+      return validateResults.every(Boolean);
+    },
+    resetFieldError(name) {
+      this.errors[name] = false;
     },
   },
 };
@@ -549,10 +639,8 @@ export default {
   }
 }
 
-.form__required {
-  &:invalid {
-    border-color: @pink;
-  }
+.form__required.form__error-field {
+  border-color: @pink;
 }
 
 .form__text-field::placeholder,

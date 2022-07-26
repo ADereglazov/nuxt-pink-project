@@ -350,7 +350,9 @@ export default {
       return validateResults.every(Boolean);
     },
     resetFieldError(name) {
-      this.errors[name] = false;
+      if (this.errors[name]) {
+        this.errors[name] = false;
+      }
     },
   },
 };

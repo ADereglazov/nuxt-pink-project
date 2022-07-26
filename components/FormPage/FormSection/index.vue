@@ -318,12 +318,7 @@ export default {
       return SPRITE + id;
     },
     handleSubmit() {
-      const valid = this.isValidForm();
-      if (valid) {
-        this.$emit("form-sent");
-      } else {
-        this.$emit("form-failure");
-      }
+      this.isValidForm() ? this.$emit("form-sent") : this.$emit("form-failure");
     },
     validateSurname() {
       const valid = Boolean(this.fieldsModel.surname.length > 1);

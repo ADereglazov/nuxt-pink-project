@@ -614,20 +614,20 @@ export default {
 }
 
 .form__text-field {
-  height: 60px;
+  height: 56px;
   padding: 0 20px;
   background-color: @white;
-  border: 2px solid @gray-lighter;
+  border: none;
   border-radius: 2px;
-  box-shadow: 0 0 0 40px inset white;
+  box-shadow: 0 0 0 40px inset white, 0 0 0 2px @gray-lighter;
 
   &:hover {
-    border-color: @black;
+    box-shadow: 0 0 0 2px @black;
   }
 
   &:focus {
     outline: none;
-    border-color: @pink;
+    box-shadow: 0 0 0 2px @pink;
   }
 
   &::-ms-clear {
@@ -823,8 +823,8 @@ export default {
 
   .form__icon {
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 0;
+    right: 0;
     display: block;
     width: 56px;
     height: 56px;

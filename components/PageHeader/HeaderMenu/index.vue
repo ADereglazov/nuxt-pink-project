@@ -5,7 +5,8 @@
       :key="index"
       :class="{
         'menu-item--first': index === 0,
-        'menu-item--active': $route.name === item.link,
+        'menu-item--active':
+          $route.name === item.link || $route.path === item.link,
       }"
       class="menu-item"
     >
@@ -24,7 +25,8 @@
           :class="{
             'menu-link--index':
               $route.path === '/' && $route.path === item.link,
-            'menu-link--current': $route.name === item.link,
+            'menu-link--current':
+              $route.name === item.link || $route.path === item.link,
           }"
           class="menu-link"
         >

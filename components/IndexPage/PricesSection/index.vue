@@ -47,8 +47,8 @@
               v-for="(column, index) in row.data"
               :key="column + index"
               :class="{
-                'prices__data--yes': row.data[index] && index !== 0,
-                'prices__data--no': !row.data[index] && index !== 0,
+                'prices__data--yes': column && index !== 0,
+                'prices__data--no': !column && index !== 0,
               }"
               class="prices__data"
             >

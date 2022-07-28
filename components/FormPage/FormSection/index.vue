@@ -630,14 +630,25 @@ export default {
     box-shadow: 0 0 0 2px @pink;
   }
 
-  &::-ms-clear {
-    width: 0; /* Убираем "крестики" в инпутах для IE */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Убираем "крестики" в инпутах для IE */
+  &[type="text"]::-ms-clear,
+  &[type="text"]::-ms-reveal {
+    display: none;
+    width: 0;
     height: 0;
   }
 }
 
 .form__required.form__error-field {
-  border-color: @pink;
+  box-shadow: 0 0 0 2px @pink;
 }
 
 .form__text-field::placeholder,

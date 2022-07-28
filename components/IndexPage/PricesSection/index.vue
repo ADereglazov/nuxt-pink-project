@@ -45,7 +45,7 @@
           >
             <td
               v-for="(column, index) in row.data"
-              :key="index"
+              :key="column + index"
               :class="{
                 'prices__data--yes': row.data[index] && index !== 0,
                 'prices__data--no': !row.data[index] && index !== 0,

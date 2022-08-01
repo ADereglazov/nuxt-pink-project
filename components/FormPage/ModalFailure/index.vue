@@ -1,5 +1,5 @@
 <template>
-  <section class="modal modal--failure">
+  <section v-click-outside="closeModal" class="modal modal--failure">
     <div class="modal__wrapper">
       <h2 class="modal__title">Что-то пошло не так!</h2>
       <p class="modal__text">
@@ -19,8 +19,13 @@
 </template>
 
 <script>
+import vClickOutside from "v-click-outside";
+
 export default {
   name: "ModalFailure",
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   props: {
     open: {
       type: Boolean,

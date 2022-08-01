@@ -1,5 +1,5 @@
 <template>
-  <section class="modal modal--sent">
+  <section v-click-outside="closeModal" class="modal modal--sent">
     <div class="modal__wrapper modal__wrapper-text">
       <h2 class="modal__title">Ваша заявка отправлена</h2>
       <p class="modal__text">
@@ -23,8 +23,13 @@
 </template>
 
 <script>
+import vClickOutside from "v-click-outside";
+
 export default {
   name: "ModalSent",
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
   props: {
     open: {
       type: Boolean,

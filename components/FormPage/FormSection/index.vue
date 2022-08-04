@@ -142,7 +142,9 @@
       <div class="form__wrapper container">
         <fieldset class="form__fieldset">
           <legend class="form__legend">Опишите свои эмоции</legend>
+          <label for="form-description" class="visually-hidden"></label>
           <textarea
+            id="form-description"
             class="form__description-text"
             placeholder="Можно прям в красках, не стесняясь в выражениях"
           ></textarea>

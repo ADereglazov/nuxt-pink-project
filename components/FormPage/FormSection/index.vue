@@ -321,17 +321,17 @@ export default {
       this.isValidForm() ? this.$emit("form-sent") : this.$emit("form-failure");
     },
     validateSurname() {
-      const valid = Boolean(this.fieldsModel.surname.length > 1);
+      const valid = this.fieldsModel.surname.length > 1;
       this.errors.surname = !valid;
       return valid;
     },
     validateName() {
-      const valid = Boolean(this.fieldsModel.name.length > 1);
+      const valid = this.fieldsModel.name.length > 1;
       this.errors.name = !valid;
       return valid;
     },
     validateEmail() {
-      const valid = Boolean(this.fieldsModel.email);
+      const valid = this.fieldsModel.email;
       this.errors.email = !valid;
       return valid;
     },

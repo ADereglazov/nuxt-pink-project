@@ -308,7 +308,7 @@ export default {
   watch: {
     isFocus() {
       const errorFieldName = Object.entries(this.errors).find(
-        (item) => item[1] === true
+        (item) => item[1]
       );
       if (errorFieldName) {
         this.$refs[errorFieldName[0]][0].focus();

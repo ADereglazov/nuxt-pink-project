@@ -373,8 +373,6 @@ export default {
 
       if (isSubmitted) {
         this.setFieldsModelState();
-        this.setRadioModelState();
-
         this.$emit("form-sent");
       } else {
         this.$emit(

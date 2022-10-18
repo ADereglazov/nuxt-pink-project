@@ -94,16 +94,14 @@
                 'photoeditor__label--hide': toolCurrent !== index,
               }"
               class="photoeditor__label"
-              tabindex="0"
               :aria-label="input.range.name"
             >
               <input
-                class="photoeditor__range visually-hidden"
+                v-model="input.range.value"
+                class="photoeditor__range"
                 type="range"
-                tabindex="-1"
                 min="1"
                 max="100"
-                :value="input.range.value"
               />
             </label>
           </div>
@@ -308,46 +306,52 @@ export default {
 
 .photoeditor__label {
   position: relative;
-  display: block;
-  width: 240px;
-  height: 2px;
-  background-color: @blue-dark;
+  font-size: 0;
+  line-height: 0;
   margin: 0 auto;
 
   &:hover {
     cursor: pointer;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    transform: translateY(-45%);
-    display: block;
+  &--hide {
+    display: none;
+  }
+}
+
+.photoeditor__range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background-color: @blue-dark;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
     width: 15px;
     height: 15px;
     border: 2px solid @pink;
     border-radius: 50%;
     background-color: @white;
+    cursor: pointer;
+
+    &:active {
+      background-color: @pink;
+    }
   }
 
-  &:first-child::before {
-    right: 35px;
-  }
+  &::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border: 2px solid @pink;
+    border-radius: 50%;
+    background-color: @white;
+    cursor: pointer;
 
-  &:nth-child(2)::before {
-    left: 22px;
-  }
-
-  &:last-child::before {
-    left: 93px;
-  }
-
-  &:active::before {
-    background-color: @pink;
-  }
-
-  &--hide {
-    display: none;
+    &:active {
+      background-color: @pink;
+    }
   }
 }
 
@@ -434,10 +438,6 @@ export default {
 
     &--hide {
       display: block;
-    }
-
-    &:first-child::before {
-      right: 40px;
     }
   }
 
@@ -539,18 +539,6 @@ export default {
 
   .photoeditor__label {
     width: 288px;
-
-    &::before {
-      left: 70px;
-    }
-
-    &:nth-child(2)::before {
-      left: 246px;
-    }
-
-    &:last-child::before {
-      left: 160px;
-    }
   }
 
   .photoeditor__buttons {

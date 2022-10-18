@@ -6,12 +6,7 @@
       на вашу бонусную карту!
       <span class="form__title-hide">Пожалуйста, заполните форму ниже:</span>
     </p>
-    <form
-      class="form__form"
-      action="https://echo.htmlacademy.ru"
-      method="post"
-      @submit.prevent="handleSubmit"
-    >
+    <form id="form" class="form__form" @submit.prevent="handleSubmit">
       <div class="form__wrapper container">
         <fieldset class="form__fieldset form__fieldset--notbordered">
           <div
@@ -359,18 +354,21 @@ export default {
     iconSrc(id) {
       return SPRITE + id;
     },
-    handleSubmit() {
+    async handleSubmit() {
       let isSubmitted = false;
 
       if (!this.isValidForm()) {
-        this.$emit("form-failure");
+        this.$emit(
+          "form-failure",
+          "Проверьте поля, выделенные красным, скорее всего вы забыли их заполнить"
+        );
         return;
       }
 
       this.isFormSubmitting = true;
       this.setFormDataTextFieldsValues();
       this.setFormDataRadioFieldsValues();
-      isSubmitted = this.sendFormData();
+      isSubmitted = await this.sendFormData();
       this.isFormSubmitting = false;
 
       if (isSubmitted) {
@@ -378,6 +376,11 @@ export default {
         this.setRadioModelState();
 
         this.$emit("form-sent");
+      } else {
+        this.$emit(
+          "form-failure",
+          "Произошла ошибка при передаче данных на сервер. Попробуйте ещё раз..."
+        );
       }
     },
     setFormDataTextFieldsValues() {
@@ -423,9 +426,18 @@ export default {
         this.errors[name] = false;
       }
     },
-    sendFormData() {
-      // TODO отправка формы на сервер
-      return true;
+    async sendFormData() {
+      const form = document.getElementById("form");
+      try {
+        const result = await fetch("https://echo.htmlacademy.ru", {
+          method: "POST",
+          body: new FormData(form),
+        });
+        return result.ok;
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
     },
   },
 };

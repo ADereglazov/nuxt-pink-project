@@ -6,12 +6,13 @@
       <ChallengeSection />
       <FormSection
         :is-focus="isModalFailureOpen"
-        @form-failure="isModalFailureOpen = true"
+        @form-failure="handleModalFailure"
         @form-sent="isModalSentOpen = true"
       />
       <ModalFailure
         v-show="isModalFailureOpen"
         :open="isModalFailureOpen"
+        :content="modalFailureText"
         @close-modal-failure="isModalFailureOpen = false"
       />
       <ModalSent
@@ -45,11 +46,16 @@ export default {
   data: () => ({
     isModalFailureOpen: false,
     isModalSentOpen: false,
+    modalFailureText: "",
   }),
   methods: {
     handleKeyDown() {
       this.isModalFailureOpen = false;
       this.isModalSentOpen = false;
+    },
+    handleModalFailure(e) {
+      this.modalFailureText = e;
+      this.isModalFailureOpen = true;
     },
   },
 };

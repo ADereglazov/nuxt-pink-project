@@ -2,9 +2,7 @@
   <section v-click-outside="closeModal" class="modal modal--failure">
     <div class="modal__wrapper">
       <h2 class="modal__title">Что-то пошло не так!</h2>
-      <p class="modal__text">
-        Проверьте поля, выделенные красным, скорее всего вы забыли их заполнить
-      </p>
+      <p class="modal__text">{{ content }}</p>
     </div>
     <div class="modal__wrapper modal__wrapper--button">
       <button
@@ -30,6 +28,10 @@ export default {
     open: {
       type: Boolean,
       default: false,
+    },
+    content: {
+      type: String,
+      default: "",
     },
   },
   methods: {

@@ -55,6 +55,7 @@
               >
                 <input
                   :id="item.id"
+                  v-model="item.checked"
                   :name="item.name"
                   :checked="item.checked"
                   class="form__progress-input visually-hidden"
@@ -125,6 +126,7 @@
               >
                 <input
                   :id="item.id"
+                  v-model="radioModel"
                   :value="item.value"
                   :checked="item.checked"
                   class="form__radio-field visually-hidden"
@@ -144,9 +146,10 @@
           <legend class="form__legend">Опишите свои эмоции</legend>
           <label for="form-description" class="visually-hidden"></label>
           <textarea
-            id="form-description"
+            :id="form.description.id"
+            v-model="form.description.value"
+            :placeholder="form.description.placeholder"
             class="form__description-text"
-            placeholder="Можно прям в красках, не стесняясь в выражениях"
           ></textarea>
         </fieldset>
         <div class="form__wrapper-elements form__wrapper-elements--row">
@@ -188,6 +191,7 @@ export default {
           label: "Фамилия:",
           placeholder: "Укажите фамилию *",
           required: true,
+          value: "",
         },
         {
           id: "name-field",
@@ -196,6 +200,7 @@ export default {
           label: "Имя:",
           placeholder: "Введите ваше имя *",
           required: true,
+          value: "",
         },
         {
           id: "middle-name-field",
@@ -204,6 +209,7 @@ export default {
           label: "Отчество:",
           placeholder: "Ну и отчество тоже",
           required: false,
+          value: "",
         },
       ],
       progress: [
@@ -255,6 +261,7 @@ export default {
           required: false,
           ariaLabel: "Контактный номер телефона",
           iconId: "#icon-phone",
+          value: "",
         },
         {
           id: "email-field",
@@ -266,6 +273,7 @@ export default {
           required: true,
           ariaLabel: "Контактный email",
           iconId: "#icon-mail",
+          value: "",
         },
       ],
       application: [
@@ -288,12 +296,14 @@ export default {
           checked: false,
         },
       ],
+      description: {
+        id: "form-description",
+        placeholder: "Можно прям в красках, не стесняясь в выражениях",
+        value: "",
+      },
     },
-    fieldsModel: {
-      surname: "",
-      name: "",
-      email: "",
-    },
+    fieldsModel: null,
+    radioModel: "",
     errors: {
       surname: false,
       name: false,
@@ -320,7 +330,32 @@ export default {
       }
     },
   },
+  beforeMount() {
+    this.setFieldsModelState();
+    this.setRadioModelState();
+  },
   methods: {
+    setFieldsModelState() {
+      const personFields = this.form.person.reduce((acc, current) => {
+        acc[current.name] = "";
+        return acc;
+      }, {});
+
+      const contactsFields = this.form.contacts.reduce((acc, current) => {
+        acc[current.name] = "";
+        return acc;
+      }, {});
+
+      this.fieldsModel = { ...personFields, ...contactsFields };
+    },
+    setRadioModelState() {
+      for (let item of this.form.application) {
+        if (item.checked) {
+          this.radioModel = item.value;
+          return;
+        }
+      }
+    },
     iconSrc(id) {
       return SPRITE + id;
     },
@@ -333,11 +368,30 @@ export default {
       }
 
       this.isFormSubmitting = true;
+      this.setFormDataTextFieldsValues();
+      this.setFormDataRadioFieldsValues();
       isSubmitted = this.sendFormData();
       this.isFormSubmitting = false;
 
       if (isSubmitted) {
+        this.setFieldsModelState();
+        this.setRadioModelState();
+
         this.$emit("form-sent");
+      }
+    },
+    setFormDataTextFieldsValues() {
+      for (let item of this.form.person) {
+        item.value = this.fieldsModel[item.name];
+      }
+
+      for (let item of this.form.contacts) {
+        item.value = this.fieldsModel[item.name];
+      }
+    },
+    setFormDataRadioFieldsValues() {
+      for (let item of this.form.application) {
+        item.checked = item.value === this.radioModel;
       }
     },
     validateSurname() {

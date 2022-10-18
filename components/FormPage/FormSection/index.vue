@@ -150,7 +150,11 @@
           ></textarea>
         </fieldset>
         <div class="form__wrapper-elements form__wrapper-elements--row">
-          <button class="form__button green-button" type="submit">
+          <button
+            :disabled="isFormSubmitting"
+            class="form__button green-button"
+            type="submit"
+          >
             Отправить форму
           </button>
           <small class="form__note">
@@ -295,6 +299,7 @@ export default {
       name: false,
       email: false,
     },
+    isFormSubmitting: false,
   }),
   computed: {
     formValidatorsMap() {
@@ -320,7 +325,20 @@ export default {
       return SPRITE + id;
     },
     handleSubmit() {
-      this.isValidForm() ? this.$emit("form-sent") : this.$emit("form-failure");
+      let isSubmitted = false;
+
+      if (!this.isValidForm()) {
+        this.$emit("form-failure");
+        return;
+      }
+
+      this.isFormSubmitting = true;
+      isSubmitted = this.sendFormData();
+      this.isFormSubmitting = false;
+
+      if (isSubmitted) {
+        this.$emit("form-sent");
+      }
     },
     validateSurname() {
       const valid = this.fieldsModel.surname.length > 1;
@@ -350,6 +368,10 @@ export default {
       if (this.errors[name]) {
         this.errors[name] = false;
       }
+    },
+    sendFormData() {
+      // TODO отправка формы на сервер
+      return true;
     },
   },
 };

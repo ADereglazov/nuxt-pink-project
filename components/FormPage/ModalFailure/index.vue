@@ -25,10 +25,6 @@ export default {
     clickOutside: vClickOutside.directive,
   },
   props: {
-    open: {
-      type: Boolean,
-      default: false,
-    },
     content: {
       type: String,
       default: "",

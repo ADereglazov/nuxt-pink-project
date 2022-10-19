@@ -30,12 +30,6 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive,
   },
-  props: {
-    open: {
-      type: Boolean,
-      default: false,
-    },
-  },
   methods: {
     closeModal() {
       this.$emit("close-modal-sent");

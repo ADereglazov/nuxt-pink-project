@@ -10,11 +10,7 @@
       </div>
     </header>
     <div class="photoeditor__wrapper container">
-      <form
-        class="photoeditor__form"
-        action="https://echo.htmlacademy.ru"
-        method="post"
-      >
+      <form id="form" class="photoeditor__form" @submit.prevent="handleSubmit">
         <picture>
           <source
             type="image/webp"
@@ -106,10 +102,17 @@
             </label>
           </div>
           <div class="photoeditor__buttons">
-            <button class="photoeditor__button" type="submit">Запостить</button>
+            <button
+              class="photoeditor__button"
+              type="submit"
+              :disabled="isFormSubmitting"
+            >
+              Запостить
+            </button>
             <button
               class="photoeditor__button photoeditor__button--reset"
               type="reset"
+              :disabled="isFormSubmitting"
             >
               Отмена
             </button>
@@ -117,14 +120,24 @@
         </div>
       </form>
     </div>
+    <ModalFailure
+      v-show="isModalFailureOpen"
+      :content="modalFailureText"
+      @close-modal-failure="isModalFailureOpen = false"
+    />
   </section>
 </template>
 
 <script>
 const SPRITE = require("~/assets/img/sprite.svg");
 
+import ModalFailure from "@/components/FormPage/ModalFailure";
+
 export default {
   name: "PhotoEditorSection",
+  components: {
+    ModalFailure,
+  },
   data: () => ({
     tools: [
       {
@@ -165,10 +178,33 @@ export default {
       },
     ],
     toolCurrent: 0,
+    isFormSubmitting: false,
+    isModalFailureOpen: false,
+    modalFailureText:
+      "Произошла ошибка при передаче данных на сервер. Попробуйте ещё раз...",
   }),
   methods: {
     iconSrc(id) {
       return SPRITE + id;
+    },
+    async handleSubmit() {
+      this.isFormSubmitting = true;
+      const isSubmitted = await this.sendFormData();
+      this.isModalFailureOpen = !isSubmitted;
+      this.isFormSubmitting = false;
+    },
+    async sendFormData() {
+      const form = document.getElementById("form");
+      try {
+        const result = await fetch("https://echo.htmlacademy.ru", {
+          method: "POST",
+          body: new FormData(form),
+        });
+        return result.ok;
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
     },
   },
 };

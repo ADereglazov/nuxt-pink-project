@@ -420,9 +420,7 @@ export default {
       return validateResults.every(Boolean);
     },
     resetFieldError(name) {
-      if (this.errors[name]) {
-        this.errors[name] = false;
-      }
+      this.errors[name] = false;
     },
     async sendFormData() {
       const form = document.getElementById("form");

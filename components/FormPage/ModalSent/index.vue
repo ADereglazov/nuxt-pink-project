@@ -12,6 +12,7 @@
       class="modal__wrapper modal__wrapper--button modal__wrapper--mobile-only"
     >
       <button
+        ref="closeModalButton"
         class="modal__button green-button"
         type="button"
         @click="closeModal"
@@ -29,6 +30,19 @@ export default {
   name: "ModalSent",
   directives: {
     clickOutside: vClickOutside.directive,
+  },
+  props: {
+    open: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  watch: {
+    open(isOpen) {
+      if (isOpen) {
+        this.$refs.closeModalButton.focus();
+      }
+    },
   },
   methods: {
     closeModal() {

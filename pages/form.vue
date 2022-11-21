@@ -11,11 +11,13 @@
       />
       <ModalFailure
         v-show="isModalFailureOpen"
+        :open="isModalFailureOpen"
         :content="modalFailureText"
         @close-modal-failure="isModalFailureOpen = false"
       />
       <ModalSent
         v-show="isModalSentOpen"
+        :open="isModalSentOpen"
         @close-modal-sent="isModalSentOpen = false"
       />
     </main>

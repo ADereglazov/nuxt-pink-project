@@ -6,6 +6,7 @@
     </div>
     <div class="modal__wrapper modal__wrapper--button">
       <button
+        ref="closeModalButton"
         class="modal__button green-button"
         type="button"
         @click="closeModal"
@@ -25,9 +26,20 @@ export default {
     clickOutside: vClickOutside.directive,
   },
   props: {
+    open: {
+      type: Boolean,
+      default: false,
+    },
     content: {
       type: String,
       default: "",
+    },
+  },
+  watch: {
+    open(isOpen) {
+      if (isOpen) {
+        this.$refs.closeModalButton.focus();
+      }
     },
   },
   methods: {
